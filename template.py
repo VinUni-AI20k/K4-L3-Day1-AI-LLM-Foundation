@@ -65,7 +65,9 @@ def call_openai(
     Gợi ý:
         from openai import OpenAI            # import BÊN TRONG hàm
         client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-        # đo thời gian bằng time.time() trước và sau lời gọi API
+        # đo thời gian bằng time.perf_counter() trước và sau lời gọi API
+        # (perf_counter là đồng hồ đo khoảng thời gian, độ phân giải cao trên
+        #  mọi hệ điều hành; time.time() trên Windows có thể trả về 0.0)
     """
     # TODO: import OpenAI, tạo client, gọi chat.completions.create,
     #       đo start/end time, trả về (response_text, latency)
