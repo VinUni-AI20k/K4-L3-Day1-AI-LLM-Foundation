@@ -320,5 +320,3 @@ Lab không chỉ yêu cầu code chạy được. Sau khi hoàn thành, bạn n�
 - Cách các thành phần kết hợp thành một vòng lặp chatbot hoàn chỉnh.
 
 Toàn bộ hướng dẫn thực hành bắt đầu tại [LAB_GUIDE.md](LAB_GUIDE.md).
-# K4-L3-Day1-AI-LLM-Foundation
-# K4-L3-Day1-AI-LLM-Foundation
