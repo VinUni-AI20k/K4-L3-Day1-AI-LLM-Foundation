@@ -1,10 +1,13 @@
 # LAB GUIDE — K4 Ngày 1: Khám Phá LLM API
-## Hướng dẫn chi tiết từng bước | 9h00–13h00
+## Hướng dẫn chi tiết từng bước | 240 phút
 
 Phiên bản hướng dẫn có giao diện đọc dễ hơn nằm trên VLearn:
 [Lab 01 — Nền tảng LLM API](https://vlearn.dev/course/k4p1/reader?day=D01&part=codelab-81bf0ad781904d05a8b5e5b474a4060c-s01-doc).
 Đăng nhập bằng email VinUni, mật khẩu là mã số sinh viên đã được kích hoạt;
 link trên sẽ mở đúng bài sau khi bạn đăng nhập xong.
+
+Các mốc dưới đây đếm theo **phút trôi qua kể từ lúc buổi lab bắt đầu**, không
+phải giờ đồng hồ — lớp sáng và lớp chiều dùng chung một tài liệu.
 
 Tài liệu này dắt bạn qua từng bước của buổi lab. Mỗi block kết thúc bằng một
 **CHECKPOINT** có mốc giờ — nếu đến giờ mà bạn chưa xong, đọc mục
@@ -236,7 +239,7 @@ Tạo solution/ → copy bản mới nhất → chấm lại → push fork → d
 
 ---
 
-# 🕘 9h00–10h00 · Mở Đầu & Setup
+# 🕘 Phút 0–60 · Mở Đầu & Setup
 
 Giảng viên giới thiệu tổng quan (10'). Song song, bạn setup môi trường:
 
@@ -304,7 +307,7 @@ lần gọi `count_tokens` đầu tiên và trông hệt như bị treo.
 pytest tests/ -v
 ```
 
-### ✅ CHECKPOINT 0 (10h00)
+### ✅ CHECKPOINT 0 (phút 60)
 Lệnh trên phải **chạy được và báo fail hàng loạt** với thông báo
 `NotImplementedError` — đó là dấu hiệu môi trường đã đúng, chỉ còn thiếu code
 của bạn. Con số chính xác khi chưa viết dòng nào:
@@ -319,7 +322,7 @@ hoặc chưa `pip install`.
 
 ---
 
-# 🕘 10h00–10h40 · BLOCK 1: API Cơ Bản
+# 🕘 Phút 60–100 · BLOCK 1: API Cơ Bản
 
 ### Mục tiêu
 - Gọi Chat Completions API, đo độ trễ
@@ -420,7 +423,7 @@ cost = (len(gpt4o_text.split()) / 0.75) / 1000 \
 `mini_response`, `gpt4o_latency`, `mini_latency`, `gpt4o_cost_estimate`).
 Tên key phải khớp từng ký tự — test so sánh chính xác.
 
-### ✅ CHECKPOINT 1 (10h40)
+### ✅ CHECKPOINT 1 (phút 100)
 ```bash
 pytest tests/test_part1.py -v
 ```
@@ -444,7 +447,7 @@ phụ thuộc Task 1.3.
 
 ---
 
-# 🕘 10h40–11h20 · BLOCK 2: System Prompt & Token
+# 🕘 Phút 100–140 · BLOCK 2: System Prompt & Token
 
 ### Mục tiêu
 - Dùng message role `system` để định persona cho model
@@ -528,7 +531,7 @@ Part 4 nên rất khó lần về đúng nguyên nhân.
 **Bước 3.** Trả dict 5 key: `input_tokens`, `output_tokens`, `input_cost`,
 `output_cost`, `total_cost` (= input + output).
 
-### ✅ CHECKPOINT 2 (11h20)
+### ✅ CHECKPOINT 2 (phút 140)
 ```bash
 pytest tests/test_part2.py -v
 ```
@@ -543,19 +546,22 @@ Kỳ vọng: **10 passed**. Thử nhanh với Python REPL:
 Trả lời **Câu 2.1 → 2.2** trong `exercises.md` (cần API key để chạy so sánh
 persona thật).
 
-**Nếu bạn bị chậm:** Task 2.1 là bắt buộc (Block 4 cần system prompt).
-Task 2.2/2.3 có thể tạm dùng bản tối giản (chỉ fallback `len(text) // 4`,
-chưa có tiktoken) — vẫn pass phần lớn test — rồi hoàn thiện sau.
+**Nếu bạn bị chậm:** ưu tiên Task 2.2 và 2.3 — Block 4 gọi thẳng
+`count_tokens` và `estimate_cost` để cộng dồn thống kê, thiếu chúng là
+`run_assistant` không chạy. `count_tokens` tạm chỉ dùng nhánh dự phòng
+`len(text) // 4` cũng được, hoàn thiện tiktoken sau. Task 2.1
+(`chat_with_system_prompt`) đứng riêng: Block 4 tự ghép system prompt vào
+`messages` chứ không gọi lại hàm này, nên nếu hết giờ thì để nó sau cùng.
 
 ---
 
-# ☕ 11h20–11h30 · GIẢI LAO
+# ☕ Phút 140–150 · GIẢI LAO
 
 Đứng dậy, rời màn hình. Block 3 cần não tươi.
 
 ---
 
-# 🕘 11h30–12h10 · BLOCK 3: Streaming & Độ Bền
+# 🕘 Phút 150–190 · BLOCK 3: Streaming & Độ Bền
 
 ### Mục tiêu
 - Stream phản hồi token-by-token cho UX tức thời
@@ -630,7 +636,7 @@ for attempt in range(max_retries + 1):
 Lưu ý `raise` trần (không tham số) giữ nguyên exception gốc — người gọi biết
 chính xác lỗi gì.
 
-### ✅ CHECKPOINT 3 (12h10)
+### ✅ CHECKPOINT 3 (phút 190)
 ```bash
 pytest tests/test_part3.py -v
 ```
@@ -647,7 +653,7 @@ vì mini-project dùng lại đúng kỹ thuật đó.
 
 ---
 
-# 🕘 12h10–12h50 · BLOCK 4: MINI-PROJECT — Trợ Lý CLI Hoàn Chỉnh
+# 🕘 Phút 190–230 · BLOCK 4: MINI-PROJECT — Trợ Lý CLI Hoàn Chỉnh
 
 ### Mục tiêu
 Ghép **tất cả** những gì đã xây thành một hàm `run_assistant`: persona qua
@@ -727,7 +733,7 @@ python template.py                     # demo thật (cần API key)
 Nhóm test `Scenario` chính là "demo tự động": nó giả lập một cuộc hội thoại
 nhiều lượt và kiểm tra stats, history, stream — đây là 15 điểm demo của bạn.
 
-### ✅ CHECKPOINT 4 (12h50)
+### ✅ CHECKPOINT 4 (phút 230)
 ```bash
 pytest tests/test_part4.py -v
 ```
@@ -741,7 +747,7 @@ thêm sau để lấy nhóm Scenario.
 ---
 
 
-# 🕘 12h50–13h00 · WRAP-UP & NỘP BÀI
+# 🕘 Phút 230–240 · WRAP-UP & NỘP BÀI
 
 Bài nộp của bạn là **link tới fork GitHub của chính bạn**, dán trên trang bài
 Lab ở VLearn. Không nén zip, không upload file lên LMS.
