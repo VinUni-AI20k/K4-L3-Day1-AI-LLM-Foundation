@@ -1,5 +1,5 @@
 """
-Checkpoint 1 (10h40) — Part 1: API cơ bản
+Checkpoint 1 (phút 100) — Part 1: API cơ bản
 Chạy:  pytest tests/test_part1.py -v
 Tất cả API đều được mock — không cần API key thật.
 """

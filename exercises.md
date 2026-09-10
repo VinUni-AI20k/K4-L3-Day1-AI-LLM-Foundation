@@ -1,7 +1,7 @@
 # K4 — Ngày 1: Bài Tập & Phản Ánh
 ## Khám Phá LLM API | Phiếu Thực Hành
 
-**Thời lượng:** 9h00–13h00
+**Thời lượng:** 4 tiếng
 **Cách làm:** Trả lời từng câu ngay sau khi hoàn thành block tương ứng —
 đừng để dồn hết về cuối buổi. Thay dòng `*Câu trả lời của bạn*` bằng câu
 trả lời thật (chấm tự động sẽ đếm số câu đã trả lời).

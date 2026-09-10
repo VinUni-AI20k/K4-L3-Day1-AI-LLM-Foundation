@@ -1,5 +1,5 @@
 """
-Checkpoint 2 (11h20) — Part 2: System prompt & token
+Checkpoint 2 (phút 140) — Part 2: System prompt & token
 Chạy:  pytest tests/test_part2.py -v
 Tất cả API đều được mock — không cần API key thật.
 count_tokens dùng tiktoken thật (hoặc fallback) — test chỉ kiểm tra tính chất.
