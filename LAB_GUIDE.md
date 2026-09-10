@@ -839,9 +839,21 @@ git push -u origin main
 
 ### Bước 6 — Dán link trên trang bài Lab ở VLearn
 
+> **Hạn nộp: 23:59 thứ Sáu 11/09/2026 (giờ Việt Nam).**
+>
+> Sau mốc đó hệ thống **không nhận bài nữa** — bấm nút nộp sẽ báo lỗi, chứ không
+> phải nộp trễ rồi trừ điểm. Trang nộp bài không hiển thị hạn này, nên hãy tự
+> ghi lại.
+>
+> Nộp sớm một bản chạy được, rồi vẫn sửa và nộp lại được trước hạn: mỗi lab chỉ
+> giữ bản mới nhất.
+
 Mở [phần nộp bài của Lab 01](https://vlearn.dev/course/k4p1/reader?day=D01&part=codelab-81bf0ad781904d05a8b5e5b474a4060c-submit),
 dán **link fork GitHub của bạn** và chọn rating. Bấm
 **Xác nhận đã nộp bài** — chỉ nút này mới đánh dấu Lab hoàn thành.
+
+Ô nhập có chữ gợi ý "Dán link GitHub, Drive hoặc LMS" — đó là chữ chung của nền
+tảng. Lab này chỉ nhận **link fork GitHub**; đừng nộp link Drive.
 
 Trước khi dán, mở link fork trong một cửa sổ trình duyệt ẩn danh để chắc chắn
 người khác xem được. Fork private thì giảng viên không chấm được bài.
@@ -854,7 +866,8 @@ người khác xem được. Fork private thì giảng viên không chấm đư�
       `solution/`.
 - [ ] `git status` không có `.env`, không có API key trong file nào đã commit.
 - [ ] Fork đã push lên GitHub và mở được bằng cửa sổ ẩn danh.
-- [ ] Đã dán link fork và bấm **Xác nhận đã nộp bài** trên trang bài Lab ở VLearn.
+- [ ] Đã dán link fork và bấm **Xác nhận đã nộp bài** trên trang bài Lab ở VLearn,
+      trước **23:59 ngày 11/09/2026**.
 
 
 ## Phụ Lục A — Lỗi Thường Gặp

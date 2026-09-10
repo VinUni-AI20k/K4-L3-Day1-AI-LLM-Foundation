@@ -52,6 +52,11 @@ lại là giàn giáo.
 Pytest dùng mock nên **không cần API key và không tốn tiền**. Key chỉ cần khi
 bạn muốn gọi model thật ở phần demo và hai câu trong `exercises.md`.
 
+**Hạn nộp bài: 23:59 thứ Sáu 11/09/2026 (giờ Việt Nam).** Sau mốc đó hệ thống
+không nhận bài nữa — bấm nút nộp sẽ báo lỗi, không phải nộp trễ rồi trừ điểm.
+Trang nộp bài trên VLearn không hiển thị hạn này, nên tự ghi lại. Cứ nộp sớm một
+bản chạy được; vẫn sửa và nộp lại được trước hạn, mỗi lab chỉ giữ bản mới nhất.
+
 ---
 
 ## Mục Tiêu Bài Lab
