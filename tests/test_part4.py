@@ -1,5 +1,5 @@
 """
-Checkpoint 4 (12h50) — Part 4: Mini-project run_assistant
+Checkpoint 4 (phút 230) — Part 4: Mini-project run_assistant
 Chạy:  pytest tests/test_part4.py -v
     Nhóm cơ bản:   pytest tests/test_part4.py -k Basic -v
     Nhóm kịch bản: pytest tests/test_part4.py -k Scenario -v

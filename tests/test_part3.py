@@ -1,5 +1,5 @@
 """
-Checkpoint 3 (12h10) — Part 3: Streaming & độ bền
+Checkpoint 3 (phút 190) — Part 3: Streaming & độ bền
 Chạy:  pytest tests/test_part3.py -v
 Tất cả API đều được mock — không cần API key thật.
 """
