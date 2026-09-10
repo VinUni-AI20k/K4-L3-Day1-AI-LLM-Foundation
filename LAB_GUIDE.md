@@ -840,8 +840,13 @@ git push -u origin main
 ### Bước 6 — Dán link trên trang bài Lab ở VLearn
 
 > **Hạn nộp: 23:59 thứ Sáu 11/09/2026 (giờ Việt Nam).**
-> Trang nộp bài **không hiển thị** hạn này, nên hãy tự ghi lại. Nộp sau mốc đó
-> vẫn gửi được nhưng bị đánh dấu trễ.
+>
+> Sau mốc đó hệ thống **không nhận bài nữa** — bấm nút nộp sẽ báo lỗi, chứ không
+> phải nộp trễ rồi trừ điểm. Trang nộp bài không hiển thị hạn này, nên hãy tự
+> ghi lại.
+>
+> Nộp sớm một bản chạy được, rồi vẫn sửa và nộp lại được trước hạn: mỗi lab chỉ
+> giữ bản mới nhất.
 
 Mở [phần nộp bài của Lab 01](https://vlearn.dev/course/k4p1/reader?day=D01&part=codelab-81bf0ad781904d05a8b5e5b474a4060c-submit),
 dán **link fork GitHub của bạn** và chọn rating. Bấm
