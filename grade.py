@@ -8,12 +8,14 @@ Cách dùng (chạy từ thư mục gốc của lab):
 Cách tính điểm (tổng 100):
     - 5 nhóm test (75đ): điểm mỗi nhóm = số test pass / tổng test * điểm nhóm
     - exercises.md (25đ): điểm = số câu đã trả lời / tổng số câu * 25
-      (một câu tính là "đã trả lời" khi placeholder '*Câu trả lời của bạn*'
-       đã được thay bằng nội dung khác)
+      (một câu tính là "đã trả lời" khi dòng '> *Câu trả lời của bạn*' của
+       câu đó đã được thay bằng nội dung khác)
 
 Ưu tiên chấm solution/solution.py và solution/exercises.md nếu tồn tại,
 nếu không sẽ chấm template.py và exercises.md ở thư mục gốc.
 """
+
+from __future__ import annotations
 
 import sys
 from pathlib import Path
@@ -32,7 +34,11 @@ TEST_GROUPS = [
 ]
 
 EXERCISES_POINTS = 25
-PLACEHOLDER = "*Câu trả lời của bạn*"
+# Mỗi câu hỏi có đúng một dòng trả lời dạng '> *Câu trả lời của bạn*'.
+# Phải so khớp cả tiền tố '> ': cụm placeholder còn xuất hiện trong phần hướng
+# dẫn ở đầu exercises.md, nên nếu đếm cả dòng đó thì bài đã trả lời đủ 9 câu
+# vẫn bị tính là thiếu một câu.
+ANSWER_PLACEHOLDER = "> *Câu trả lời của bạn*"
 TOTAL_QUESTIONS = 9  # số câu hỏi trong exercises.md gốc
 
 
@@ -67,23 +73,51 @@ def run_test_group(pytest_args: list[str]) -> tuple[int, int]:
     return collector.passed, collector.total
 
 
+def _rel(path: Path | None) -> str:
+    """Đường dẫn tương đối so với thư mục lab, để in cho gọn."""
+    return str(path.relative_to(DAY_DIR)) if path else "(không tìm thấy)"
+
+
+def resolve_targets() -> tuple[Path | None, Path | None]:
+    """Trả về (file code, file exercises) sẽ được chấm.
+
+    Thứ tự ưu tiên giống hệt tests/_loader.py: bản trong solution/ thắng bản ở
+    thư mục gốc. In ra để bạn không lỡ chấm nhầm một bản copy đã cũ.
+    """
+    code = next(
+        (p for p in (DAY_DIR / "solution" / "solution.py", DAY_DIR / "template.py")
+         if p.exists()),
+        None,
+    )
+    exercises = next(
+        (p for p in (DAY_DIR / "solution" / "exercises.md", DAY_DIR / "exercises.md")
+         if p.exists()),
+        None,
+    )
+    return code, exercises
+
+
 def grade_exercises() -> tuple[int, Path | None]:
     """Trả về (số câu đã trả lời, đường dẫn file được chấm)."""
-    for candidate in (
-        DAY_DIR / "solution" / "exercises.md",
-        DAY_DIR / "exercises.md",
-    ):
-        if candidate.exists():
-            remaining = candidate.read_text(encoding="utf-8").count(PLACEHOLDER)
-            answered = max(0, TOTAL_QUESTIONS - remaining)
-            return answered, candidate
-    return 0, None
+    _, candidate = resolve_targets()
+    if candidate is None:
+        return 0, None
+    remaining = sum(
+        1
+        for line in candidate.read_text(encoding="utf-8").splitlines()
+        if line.strip() == ANSWER_PLACEHOLDER
+    )
+    return max(0, TOTAL_QUESTIONS - remaining), candidate
 
 
 def main() -> int:
     print("=" * 70)
     print("CHẤM ĐIỂM TỰ ĐỘNG — K4 Ngày 1: Khám Phá LLM API")
     print("=" * 70)
+
+    code_file, ex_file = resolve_targets()
+    print(f"Đang chấm code:      {_rel(code_file)}")
+    print(f"Đang chấm exercises: {_rel(ex_file)}")
 
     rows = []
 
@@ -96,7 +130,7 @@ def main() -> int:
     answered, exercises_file = grade_exercises()
     ex_score = round(EXERCISES_POINTS * answered / TOTAL_QUESTIONS, 1)
     detail = (
-        f"{answered}/{TOTAL_QUESTIONS} câu ({exercises_file.name})"
+        f"{answered}/{TOTAL_QUESTIONS} câu"
         if exercises_file
         else "không tìm thấy exercises.md"
     )
