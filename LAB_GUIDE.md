@@ -1,9 +1,10 @@
 # LAB GUIDE — K4 Ngày 1: Khám Phá LLM API
 ## Hướng dẫn chi tiết từng bước | 9h00–13h00
 
-Phiên bản hướng dẫn có giao diện đọc dễ hơn nằm trên [VLearn](https://vlearn.dev):
-đăng nhập rồi mở khoá học của bạn → **Day 1** → bài Lab "Nền tảng LLM API".
-Đăng nhập bằng email VinUni, mật khẩu là mã số sinh viên đã được kích hoạt.
+Phiên bản hướng dẫn có giao diện đọc dễ hơn nằm trên VLearn:
+[Lab 01 — Nền tảng LLM API](https://vlearn.dev/course/k4p1/reader?day=D02&part=codelab-81bf0ad781904d05a8b5e5b474a4060c-s01-doc).
+Đăng nhập bằng email VinUni, mật khẩu là mã số sinh viên đã được kích hoạt;
+link trên sẽ mở đúng bài sau khi bạn đăng nhập xong.
 
 Tài liệu này dắt bạn qua từng bước của buổi lab. Mỗi block kết thúc bằng một
 **CHECKPOINT** có mốc giờ — nếu đến giờ mà bạn chưa xong, đọc mục
@@ -838,9 +839,8 @@ git push -u origin main
 
 ### Bước 6 — Dán link trên trang bài Lab ở VLearn
 
-Mở [VLearn](https://vlearn.dev), vào khoá học của bạn → **Day 1** → bài Lab
-"Nền tảng LLM API",
-kéo xuống cuối bài, dán **link fork GitHub của bạn** và chọn rating. Bấm
+Mở [phần nộp bài của Lab 01](https://vlearn.dev/course/k4p1/reader?day=D02&part=codelab-81bf0ad781904d05a8b5e5b474a4060c-submit),
+dán **link fork GitHub của bạn** và chọn rating. Bấm
 **Xác nhận đã nộp bài** — chỉ nút này mới đánh dấu Lab hoàn thành.
 
 Trước khi dán, mở link fork trong một cửa sổ trình duyệt ẩn danh để chắc chắn
