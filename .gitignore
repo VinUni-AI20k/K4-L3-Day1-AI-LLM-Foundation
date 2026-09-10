@@ -1,0 +1,10 @@
+# KHÔNG BAO GIỜ commit API key
+.env
+
+# Tài liệu nội bộ của giảng viên — không phát cho học viên
+docs/
+
+.venv/
+__pycache__/
+.pytest_cache/
+solution.zip
