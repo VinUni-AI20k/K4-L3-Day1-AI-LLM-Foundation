@@ -52,6 +52,9 @@ lại là giàn giáo.
 Pytest dùng mock nên **không cần API key và không tốn tiền**. Key chỉ cần khi
 bạn muốn gọi model thật ở phần demo và hai câu trong `exercises.md`.
 
+**Hạn nộp bài: 23:59 thứ Sáu 11/09/2026 (giờ Việt Nam).** Trang nộp bài trên
+VLearn không hiển thị hạn này — tự ghi lại.
+
 ---
 
 ## Mục Tiêu Bài Lab
