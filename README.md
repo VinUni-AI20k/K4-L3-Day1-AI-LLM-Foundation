@@ -13,7 +13,7 @@ cài đặt môi trường, cấu hình API key, thực hiện từng task, ch�
 ## Bắt Đầu
 
 Bản hướng dẫn có giao diện đọc dễ hơn nằm trên VLearn:
-[Lab 01 — Nền tảng LLM API](https://vlearn.dev/course/k4p1/reader?day=D02&part=codelab-81bf0ad781904d05a8b5e5b474a4060c-s01-doc).
+[Lab 01 — Nền tảng LLM API](https://vlearn.dev/course/k4p1/reader?day=D01&part=codelab-81bf0ad781904d05a8b5e5b474a4060c-s01-doc).
 Nội dung giống nhau; chọn bản nào bạn thấy dễ theo hơn. Bài nộp cũng nộp ở đó.
 
 **1. Fork repo này** trên GitHub (nút **Fork** góc phải trên), rồi clone bản

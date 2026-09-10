@@ -2,7 +2,7 @@
 ## Hướng dẫn chi tiết từng bước | 9h00–13h00
 
 Phiên bản hướng dẫn có giao diện đọc dễ hơn nằm trên VLearn:
-[Lab 01 — Nền tảng LLM API](https://vlearn.dev/course/k4p1/reader?day=D02&part=codelab-81bf0ad781904d05a8b5e5b474a4060c-s01-doc).
+[Lab 01 — Nền tảng LLM API](https://vlearn.dev/course/k4p1/reader?day=D01&part=codelab-81bf0ad781904d05a8b5e5b474a4060c-s01-doc).
 Đăng nhập bằng email VinUni, mật khẩu là mã số sinh viên đã được kích hoạt;
 link trên sẽ mở đúng bài sau khi bạn đăng nhập xong.
 
@@ -839,7 +839,7 @@ git push -u origin main
 
 ### Bước 6 — Dán link trên trang bài Lab ở VLearn
 
-Mở [phần nộp bài của Lab 01](https://vlearn.dev/course/k4p1/reader?day=D02&part=codelab-81bf0ad781904d05a8b5e5b474a4060c-submit),
+Mở [phần nộp bài của Lab 01](https://vlearn.dev/course/k4p1/reader?day=D01&part=codelab-81bf0ad781904d05a8b5e5b474a4060c-submit),
 dán **link fork GitHub của bạn** và chọn rating. Bấm
 **Xác nhận đã nộp bài** — chỉ nút này mới đánh dấu Lab hoàn thành.
 
