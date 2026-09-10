@@ -288,7 +288,15 @@ Key chỉ cần cho phần **chạy thật** (demo, exercises); pytest không c�
 > [Phụ lục B](#phụ-lục-b--lấy-api-key-miễn-phí-từ-nvidia-nim) — chỉ mất
 > ~5 phút đăng ký, không cần thẻ tín dụng, và không phải sửa dòng code nào.
 
-**Bước 3.** Chạy thử bộ test:
+**Bước 3.** Làm nóng bộ mã hóa của `tiktoken` (chỉ cần chạy một lần, cần mạng):
+```bash
+python -c "import tiktoken; tiktoken.get_encoding('o200k_base'); print('tiktoken OK')"
+```
+Lần đầu, lệnh này tải khoảng 3–4 MB và có thể mất vài chục giây. Làm ngay bây
+giờ để Block 2 không phải chờ: nếu để tới lúc đó, `pytest` sẽ đứng im rất lâu ở
+lần gọi `count_tokens` đầu tiên và trông hệt như bị treo.
+
+**Bước 4.** Chạy thử bộ test:
 ```bash
 pytest tests/ -v
 ```
@@ -296,8 +304,15 @@ pytest tests/ -v
 ### ✅ CHECKPOINT 0 (10h00)
 Lệnh trên phải **chạy được và báo fail hàng loạt** với thông báo
 `NotImplementedError` — đó là dấu hiệu môi trường đã đúng, chỉ còn thiếu code
-của bạn. Nếu gặp `ModuleNotFoundError: No module named 'openai'` → môi trường
-ảo chưa activate hoặc chưa `pip install`.
+của bạn. Con số chính xác khi chưa viết dòng nào:
+
+```text
+33 failed, 2 passed
+```
+
+(Hai test pass là hai test chỉ kiểm tra hàm có tồn tại.) Nếu gặp
+`ModuleNotFoundError: No module named 'openai'` → môi trường ảo chưa activate
+hoặc chưa `pip install`.
 
 ---
 
@@ -341,9 +356,9 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 ```
 
 **Bước 3.** Đo thời gian quanh lời gọi API — `latency` là thời gian **chỉ của
-lời gọi mạng**, nên `time.time()` phải nằm sát trước và sau `create(...)`:
+lời gọi mạng**, nên phép đo phải nằm sát trước và sau `create(...)`:
 ```python
-start = time.time()
+start = time.perf_counter()
 response = client.chat.completions.create(
     model=model,
     messages=[{"role": "user", "content": prompt}],
@@ -351,8 +366,13 @@ response = client.chat.completions.create(
     top_p=top_p,
     max_tokens=max_tokens,
 )
-latency = time.time() - start
+latency = time.perf_counter() - start
 ```
+Dùng `time.perf_counter()` chứ không phải `time.time()`: đây là đồng hồ chuyên
+để đo khoảng thời gian, độ phân giải cao trên mọi hệ điều hành. Trên Windows
+với Python 3.12 trở xuống, `time.time()` chỉ nhích mỗi ~15,6 ms — lời gọi đã
+được mock trong test chạy xong trong vài chục micro giây, nên hiệu số ra đúng
+`0.0` và test `latency > 0` sẽ trượt dù code của bạn hoàn toàn đúng.
 
 **Bước 4.** Trả về tuple `(text, latency)`:
 ```python
@@ -361,8 +381,11 @@ return response.choices[0].message.content, latency
 
 **Bước 5.** Kiểm tra ngay (đừng đợi xong hết mới test):
 ```bash
-pytest tests/test_part1.py -k CallOpenAI -v
+pytest tests/test_part1.py -k "TestCallOpenAI and not Mini" -v
 ```
+Kỳ vọng **3 passed**. Đừng dùng `-k CallOpenAI`: chuỗi đó khớp cả lớp
+`TestCallOpenAIMini`, nên bạn sẽ chạy 6 test và thấy 3 test của Task 1.2 báo
+đỏ trong khi bạn còn chưa làm tới nó.
 
 ### Task 1.2 — `call_openai_mini` (~5')
 
@@ -411,7 +434,8 @@ python -c "from template import compare_models; \
 ```
 Sau đó trả lời **Câu 1.1 → 1.3** trong `exercises.md`.
 
-**Nếu bạn bị chậm:** tối thiểu Task 1.1 phải pass (`-k CallOpenAI`) rồi sang
+**Nếu bạn bị chậm:** tối thiểu Task 1.1 phải pass
+(`-k "TestCallOpenAI and not Mini"`) rồi sang
 Block 2 — Task 1.2/1.3 quay lại làm trong giờ wrap-up. Block 2 và 3 không
 phụ thuộc Task 1.3.
 
@@ -487,10 +511,16 @@ output_tokens = count_tokens(response, model)
 
 **Bước 2.** Tra bảng giá và tính. Lưu ý đơn vị là **USD trên 1000 token**:
 ```python
-pricing = PRICING_PER_1K_TOKENS[model]
+pricing = PRICING_PER_1K_TOKENS.get(model, PRICING_PER_1K_TOKENS["gpt-4o"])
 input_cost = input_tokens / 1000 * pricing["input"]
 output_cost = output_tokens / 1000 * pricing["output"]
 ```
+Phải dùng `.get(...)` có giá trị dự phòng, đừng viết `PRICING_PER_1K_TOKENS[model]`.
+`PRICING_PER_1K_TOKENS` chỉ liệt kê hai model OpenAI, nên nếu bạn dùng key
+NVIDIA NIM (Phụ lục B) thì `model` mặc định là `meta/llama-...` và dấu ngoặc
+vuông sẽ ném `KeyError`. Lỗi đó làm trượt 3 test của Part 2 **và** cả 5 test
+kịch bản của Part 4 — tổng cộng gần 20 điểm, mà thông báo lỗi lại hiện ra ở
+Part 4 nên rất khó lần về đúng nguyên nhân.
 
 **Bước 3.** Trả dict 5 key: `input_tokens`, `output_tokens`, `input_cost`,
 `output_cost`, `total_cost` (= input + output).
@@ -778,9 +808,17 @@ pytest tests/ -v
 python grade.py
 ```
 
-Trong kết quả `grade.py`, phần Exercises phải cho biết file được chấm là
-`exercises.md` trong `solution/`. Nếu kết quả sau khi copy khác kết quả trước
-đó, có thể bạn đã copy nhầm phiên bản cũ. Hãy copy lại hai file rồi chấm lại.
+Hai dòng đầu tiên `grade.py` in ra cho biết chính xác nó đang chấm file nào —
+đọc kỹ hai dòng đó:
+
+```text
+Đang chấm code:      solution/solution.py
+Đang chấm exercises: solution/exercises.md
+```
+
+Nếu vẫn thấy `template.py` thì thư mục `solution/` chưa được tạo đúng. Nếu kết
+quả sau khi copy khác kết quả trước đó, có thể bạn đã copy nhầm phiên bản cũ.
+Hãy copy lại hai file rồi chấm lại.
 
 > Từ thời điểm này, nếu tiếp tục sửa `template.py` hoặc `exercises.md` ở thư
 > mục gốc, bạn phải copy lại sang `solution/` trước khi chạy test và nộp.
@@ -869,6 +907,8 @@ upload:
 | History phình to, chi phí tăng dần | Quên cắt history | `history = history[-6:]` sau mỗi lượt |
 | `StopIteration` trong test scenario | Đọc input nhiều hơn số lượt kịch bản | Kiểm tra `max_turns` **trước** khi `get_input()` |
 | tiktoken treo/lỗi khi offline | Lần đầu cần mạng để tải encoding | Fallback `max(1, len(text) // 4)` trong try/except |
+| `KeyError: 'meta/llama-...'` ở Part 4 | `estimate_cost` tra bảng giá bằng `[model]` khi dùng NIM | `PRICING_PER_1K_TOKENS.get(model, PRICING_PER_1K_TOKENS["gpt-4o"])` |
+| `latency` bằng `0.0` trên Windows | `time.time()` chỉ nhích mỗi ~15,6 ms (Python ≤ 3.12) | Dùng `time.perf_counter()` để đo khoảng thời gian |
 
 ---
 
