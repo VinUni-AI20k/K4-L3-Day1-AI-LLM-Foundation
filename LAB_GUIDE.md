@@ -545,9 +545,12 @@ Kỳ vọng: **10 passed**. Thử nhanh với Python REPL:
 Trả lời **Câu 2.1 → 2.2** trong `exercises.md` (cần API key để chạy so sánh
 persona thật).
 
-**Nếu bạn bị chậm:** Task 2.1 là bắt buộc (Block 4 cần system prompt).
-Task 2.2/2.3 có thể tạm dùng bản tối giản (chỉ fallback `len(text) // 4`,
-chưa có tiktoken) — vẫn pass phần lớn test — rồi hoàn thiện sau.
+**Nếu bạn bị chậm:** ưu tiên Task 2.2 và 2.3 — Block 4 gọi thẳng
+`count_tokens` và `estimate_cost` để cộng dồn thống kê, thiếu chúng là
+`run_assistant` không chạy. `count_tokens` tạm chỉ dùng nhánh dự phòng
+`len(text) // 4` cũng được, hoàn thiện tiktoken sau. Task 2.1
+(`chat_with_system_prompt`) đứng riêng: Block 4 tự ghép system prompt vào
+`messages` chứ không gọi lại hàm này, nên nếu hết giờ thì để nó sau cùng.
 
 ---
 
