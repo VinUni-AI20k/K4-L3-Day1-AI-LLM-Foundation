@@ -89,4 +89,4 @@ thiện cụ thể và mô tả ngắn cách triển khai:**
 - [ ] `python grade.py` — xem điểm tự động, mục tiêu ≥ 75/100
 - [ ] Cả 4 checkpoint pytest đều pass
 - [ ] Tất cả 9 câu trong file này đã được trả lời
-- [ ] Đã copy bài làm vào folder `solution/` và zip theo hướng dẫn README
+- [ ] Đã copy bài làm vào folder `solution/`, push lên fork và dán link trên trang Codelab

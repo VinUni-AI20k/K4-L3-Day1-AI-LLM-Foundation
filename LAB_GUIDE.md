@@ -50,12 +50,13 @@ exercises.md ── ghi lại quan sát và câu trả lời của bạn
 Đây là file nên đọc đầu tiên. README giải thích:
 
 - Lab học gì và sản phẩm cuối cùng là gì.
-- Cách tạo môi trường ảo, cài thư viện và cấu hình API key.
-- Lộ trình Part 1–4, cách chạy test, chấm điểm và đóng gói bài nộp.
-- Các lỗi thường gặp và checklist trước khi nộp.
+- Bốn Part và những gì bạn xây trong mỗi Part.
+- Các khái niệm nền: message role, temperature, top-p, token, chi phí,
+  latency, streaming, persona.
 
-README giúp bạn nhìn toàn cảnh. Khi bắt đầu viết một hàm cụ thể, quay lại
-`LAB_GUIDE.md` để xem từng bước triển khai.
+README trả lời câu hỏi "mình đang xây cái gì và vì sao". Mọi bước thực hành —
+cài môi trường, cấu hình API key, làm từng task, chạy test, chấm điểm, nộp bài
+— đều nằm trong `LAB_GUIDE.md`, tức là file bạn đang đọc.
 
 ## `LAB_GUIDE.md` — Hướng dẫn thực hành từng bước
 
@@ -198,9 +199,10 @@ File này yêu cầu Git bỏ qua các nội dung như `.env`, môi trường �
 Python và file sinh tạm. Quan trọng nhất là `.env`: API key thật không được
 đưa vào lịch sử Git.
 
-## `solution/` — Thư mục bài nộp được tạo ở cuối lab
+## `solution/` — Thư mục bài làm được tạo ở cuối lab
 
-Thư mục này chưa có sẵn lúc bắt đầu. Trước khi nộp, bạn tạo nó và copy:
+Thư mục này chưa có sẵn lúc bắt đầu. Trước khi nộp, bạn tạo nó và copy bài làm
+vào; nó được commit cùng repo và là thứ giảng viên chấm:
 
 ```text
 solution/
@@ -228,7 +230,7 @@ Ghi câu trả lời vào exercises.md
     ↓
 Chạy toàn bộ tests → chạy grade.py
     ↓
-Tạo solution/ → copy bản mới nhất → chấm lại → zip và nộp
+Tạo solution/ → copy bản mới nhất → chấm lại → push fork → dán link
 ```
 
 ---
@@ -737,20 +739,20 @@ thêm sau để lấy nhóm Scenario.
 
 ---
 
+
 # 🕘 12h50–13h00 · WRAP-UP & NỘP BÀI
 
-Phần này hướng dẫn tạo đúng gói bài nộp từ hai file bạn đã hoàn thiện. Đừng
-zip toàn bộ repo: bài nộp chỉ cần `solution.py` và `exercises.md` nằm trong
-thư mục `solution/`.
+Bài nộp của bạn là **link tới fork GitHub của chính bạn**, dán trên trang
+Codelab. Không nén zip, không upload file lên LMS.
 
 ### Bước 1 — Kiểm tra bản làm việc lần cuối
 
 Rà lại các phần bắt buộc:
 
 - `template.py`: đã triển khai các hàm Part 1–4 và không đổi chữ ký hàm.
-- `exercises.md`: cả 9 placeholder `*Câu trả lời của bạn*` đã được thay bằng
-  câu trả lời thật.
-- `.env`: không được copy vào bài nộp.
+- `exercises.md`: cả 9 dòng `> *Câu trả lời của bạn*` đã được thay bằng câu
+  trả lời thật. Thay nguyên dòng, đừng viết thêm bên dưới mà giữ lại dòng cũ —
+  bộ chấm nhìn đúng dòng đó để biết câu nào đã làm.
 
 Chạy toàn bộ test từ thư mục gốc của lab:
 
@@ -758,24 +760,12 @@ Chạy toàn bộ test từ thư mục gốc của lab:
 pytest tests/ -v
 ```
 
-Sau đó xem điểm tạm thời:
-
-```bash
-python grade.py
-```
-
-Nếu mục nào chưa đạt điểm mong muốn, sửa file gốc rồi chạy lại đúng test của
-part đó. Chỉ chuyển sang bước đóng gói khi bản làm việc đã ổn định.
+Kỳ vọng: **35 passed**.
 
 ### Bước 2 — Tạo thư mục `solution/`
 
-#### Windows — PowerShell
-
-```powershell
-New-Item -ItemType Directory -Force solution
-Copy-Item template.py solution\solution.py -Force
-Copy-Item exercises.md solution\exercises.md -Force
-```
+Khi `solution/solution.py` tồn tại, cả `tests/_loader.py` lẫn `grade.py` đều ưu
+tiên bản trong `solution/` thay vì `template.py` ở thư mục gốc.
 
 #### macOS/Linux
 
@@ -785,116 +775,86 @@ cp template.py solution/solution.py
 cp exercises.md solution/exercises.md
 ```
 
-Lưu ý tên file code phải đổi từ `template.py` thành **`solution.py`**. Cấu
-trúc đúng sau khi copy:
+#### Windows — PowerShell
 
-```text
-solution/
-├── solution.py
-└── exercises.md
+```powershell
+New-Item -ItemType Directory -Force solution
+Copy-Item template.py solution\solution.py -Force
+Copy-Item exercises.md solution\exercises.md -Force
 ```
 
-Không copy `.env`, `.venv/`, `tests/`, `__pycache__/` hoặc API key vào thư
-mục này.
+Lưu ý tên file code phải đổi từ `template.py` thành **`solution.py`**.
 
 ### Bước 3 — Chấm lại chính bản sẽ nộp
-
-Đây là bước rất quan trọng. Khi `solution/solution.py` tồn tại,
-`tests/_loader.py` và `grade.py` sẽ ưu tiên bản trong `solution/` thay vì
-`template.py` ở thư mục gốc.
 
 ```bash
 pytest tests/ -v
 python grade.py
 ```
 
-Hai dòng đầu tiên `grade.py` in ra cho biết chính xác nó đang chấm file nào —
-đọc kỹ hai dòng đó:
+Hai dòng đầu `grade.py` in ra cho biết chính xác nó đang chấm file nào — đọc
+kỹ hai dòng đó:
 
 ```text
 Đang chấm code:      solution/solution.py
 Đang chấm exercises: solution/exercises.md
 ```
 
-Nếu vẫn thấy `template.py` thì thư mục `solution/` chưa được tạo đúng. Nếu kết
-quả sau khi copy khác kết quả trước đó, có thể bạn đã copy nhầm phiên bản cũ.
-Hãy copy lại hai file rồi chấm lại.
+Nếu vẫn thấy `template.py` thì thư mục `solution/` chưa được tạo đúng.
 
 > Từ thời điểm này, nếu tiếp tục sửa `template.py` hoặc `exercises.md` ở thư
-> mục gốc, bạn phải copy lại sang `solution/` trước khi chạy test và nộp.
+> mục gốc, bạn phải copy lại sang `solution/` trước khi chấm và nộp.
 
-### Bước 4 — Tạo file ZIP
+### Bước 4 — Kiểm tra không có API key trong bài
 
-Thay `123456` trong ví dụ dưới đây bằng mã số sinh viên của bạn.
-
-#### Windows — PowerShell
-
-Xóa file ZIP cũ cùng tên nếu có, sau đó nén thư mục `solution/`:
-
-```powershell
-Compress-Archive -Path solution -DestinationPath 123456_lab_1.zip -Force
-```
-
-#### macOS/Linux
+Fork của bạn là **repo công khai**. Một API key lọt vào lịch sử Git là key bị
+lộ ra Internet; xoá commit sau đó cũng không thu hồi được key đã lộ.
 
 ```bash
-zip -r 123456_lab_1.zip solution/
+git status
 ```
 
-Tên file phải theo mẫu:
+`.env` phải **không** xuất hiện trong danh sách file sẽ được commit — repo đã
+có sẵn `.gitignore` chặn nó. Nếu bạn thấy `.env` trong danh sách, dừng lại và
+báo giảng viên trước khi commit. Cũng đừng dán key vào `template.py`,
+`exercises.md` hay ảnh chụp màn hình.
 
-```text
-<MSSV>_lab_1.zip
-```
-
-Ví dụ sinh viên có mã số `123456` sẽ nộp `123456_lab_1.zip`.
-
-### Bước 5 — Kiểm tra nội dung file ZIP
-
-Mở file ZIP bằng File Explorer/Finder hoặc liệt kê nội dung bằng terminal:
+### Bước 5 — Đẩy bài lên fork của bạn
 
 ```bash
-tar -tf 123456_lab_1.zip
+git add -A
+git commit -m "Hoan thanh Lab 01"
+git push
 ```
 
-Kết quả mong đợi chỉ gồm:
+Nếu bạn clone từ repo gốc thay vì từ fork của mình, `git push` sẽ bị từ chối vì
+bạn không có quyền ghi. Khi đó: fork repo trên GitHub, rồi trỏ `origin` sang
+fork của bạn:
 
-```text
-solution/
-solution/solution.py
-solution/exercises.md
+```bash
+git remote set-url origin https://github.com/<tên-github-của-bạn>/K4-L3-Day1-AI-LLM-Foundation.git
+git push -u origin main
 ```
 
-Trước khi upload, xác nhận:
+### Bước 6 — Dán link trên trang Codelab
 
-- ZIP mở được và không bị lỗi.
-- Có đúng thư mục ngoài cùng là `solution/`.
-- `solution.py` và `exercises.md` là hai bản mới nhất.
-- Không có `.env`, API key hoặc file không liên quan.
-- Tên ZIP chứa đúng mã số sinh viên, không còn chuỗi mẫu `123456`.
+Mở [trang Lab 01 trên VLearn Codelabs](https://codelabs.vlearn.dev/codelab/day1-lab-llm-api-foundation),
+kéo xuống cuối bài, dán **link fork GitHub của bạn** và chọn rating. Bấm
+**Xác nhận đã nộp bài** — chỉ nút này mới đánh dấu Lab hoàn thành.
 
-### Bước 6 — Upload lên LMS
-
-Upload file `<MSSV>_lab_1.zip` lên đúng bài tập của khóa K4 trên LMS. Sau khi
-upload:
-
-1. Kiểm tra lại tên file hiển thị trên LMS.
-2. Chờ hệ thống báo upload thành công.
-3. Bấm **Submit/Nộp bài** nếu LMS có bước xác nhận riêng.
-4. Giữ lại file ZIP và ảnh/trạng thái xác nhận đã nộp cho đến khi có điểm.
+Trước khi dán, mở link fork trong một cửa sổ trình duyệt ẩn danh để chắc chắn
+người khác xem được. Fork private thì giảng viên không chấm được bài.
 
 ### Checklist nộp bài nhanh
 
-- [ ] `pytest tests/ -v` đã chạy trên bản trong `solution/`.
-- [ ] `python grade.py` hiển thị đúng điểm mong đợi.
-- [ ] `solution/solution.py` là bản mới nhất của `template.py`.
-- [ ] `solution/exercises.md` có đủ 9 câu trả lời.
-- [ ] ZIP chỉ chứa thư mục `solution/` và hai file cần nộp.
-- [ ] Không có `.env` hoặc API key trong ZIP.
-- [ ] File được đặt tên đúng `<MSSV>_lab_1.zip`.
-- [ ] LMS xác nhận bài đã được upload và submit thành công.
+- [ ] `pytest tests/ -v` cho **35 passed**.
+- [ ] Cả 9 dòng `> *Câu trả lời của bạn*` trong `exercises.md` đã được thay.
+- [ ] `python grade.py` hiển thị đúng điểm mong đợi và đang chấm bản trong
+      `solution/`.
+- [ ] `git status` không có `.env`, không có API key trong file nào đã commit.
+- [ ] Fork đã push lên GitHub và mở được bằng cửa sổ ẩn danh.
+- [ ] Đã dán link fork và bấm **Xác nhận đã nộp bài** trên trang Codelab.
 
----
 
 ## Phụ Lục A — Lỗi Thường Gặp
 
