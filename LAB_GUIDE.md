@@ -1,9 +1,9 @@
 # LAB GUIDE — K4 Ngày 1: Khám Phá LLM API
 ## Hướng dẫn chi tiết từng bước | 9h00–13h00
 
-Phiên bản hướng dẫn trên website:
-[VLearn Codelabs — Day 1](https://codelabs.vlearn.dev/codelab/day1-lab-llm-api-foundation).
-Đăng nhập bằng email VinUni và mật khẩu là mã số sinh viên đã được kích hoạt.
+Phiên bản hướng dẫn có giao diện đọc dễ hơn nằm trên [VLearn](https://vlearn.dev):
+đăng nhập rồi mở khoá học của bạn → **Day 1** → bài Lab "Nền tảng LLM API".
+Đăng nhập bằng email VinUni, mật khẩu là mã số sinh viên đã được kích hoạt.
 
 Tài liệu này dắt bạn qua từng bước của buổi lab. Mỗi block kết thúc bằng một
 **CHECKPOINT** có mốc giờ — nếu đến giờ mà bạn chưa xong, đọc mục
@@ -742,8 +742,8 @@ thêm sau để lấy nhóm Scenario.
 
 # 🕘 12h50–13h00 · WRAP-UP & NỘP BÀI
 
-Bài nộp của bạn là **link tới fork GitHub của chính bạn**, dán trên trang
-Codelab. Không nén zip, không upload file lên LMS.
+Bài nộp của bạn là **link tới fork GitHub của chính bạn**, dán trên trang bài
+Lab ở VLearn. Không nén zip, không upload file lên LMS.
 
 ### Bước 1 — Kiểm tra bản làm việc lần cuối
 
@@ -836,9 +836,10 @@ git remote set-url origin https://github.com/<tên-github-của-bạn>/K4-L3-Day
 git push -u origin main
 ```
 
-### Bước 6 — Dán link trên trang Codelab
+### Bước 6 — Dán link trên trang bài Lab ở VLearn
 
-Mở [trang Lab 01 trên VLearn Codelabs](https://codelabs.vlearn.dev/codelab/day1-lab-llm-api-foundation),
+Mở [VLearn](https://vlearn.dev), vào khoá học của bạn → **Day 1** → bài Lab
+"Nền tảng LLM API",
 kéo xuống cuối bài, dán **link fork GitHub của bạn** và chọn rating. Bấm
 **Xác nhận đã nộp bài** — chỉ nút này mới đánh dấu Lab hoàn thành.
 
@@ -853,7 +854,7 @@ người khác xem được. Fork private thì giảng viên không chấm đư�
       `solution/`.
 - [ ] `git status` không có `.env`, không có API key trong file nào đã commit.
 - [ ] Fork đã push lên GitHub và mở được bằng cửa sổ ẩn danh.
-- [ ] Đã dán link fork và bấm **Xác nhận đã nộp bài** trên trang Codelab.
+- [ ] Đã dán link fork và bấm **Xác nhận đã nộp bài** trên trang bài Lab ở VLearn.
 
 
 ## Phụ Lục A — Lỗi Thường Gặp
