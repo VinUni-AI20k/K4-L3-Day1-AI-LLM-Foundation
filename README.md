@@ -12,9 +12,9 @@ cài đặt môi trường, cấu hình API key, thực hiện từng task, ch�
 
 ## Bắt Đầu
 
-Bản hướng dẫn có giao diện đọc dễ hơn nằm ở
-[VLearn Codelabs — Lab 01](https://codelabs.vlearn.dev/codelab/day1-lab-llm-api-foundation).
-Nội dung giống nhau; chọn bản nào bạn thấy dễ theo hơn.
+Bản hướng dẫn có giao diện đọc dễ hơn nằm trên [VLearn](https://vlearn.dev):
+đăng nhập rồi mở khoá học của bạn → **Day 1** → bài Lab "Nền tảng LLM API".
+Nội dung giống nhau; chọn bản nào bạn thấy dễ theo hơn. Bài nộp cũng nộp ở đó.
 
 **1. Fork repo này** trên GitHub (nút **Fork** góc phải trên), rồi clone bản
 fork của bạn về máy — bài nộp cuối buổi là link tới fork đó:
