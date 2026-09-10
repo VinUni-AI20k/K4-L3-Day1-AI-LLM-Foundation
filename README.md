@@ -10,6 +10,50 @@ cài đặt môi trường, cấu hình API key, thực hiện từng task, ch�
 
 ---
 
+## Bắt Đầu
+
+Bản hướng dẫn có giao diện đọc dễ hơn nằm ở
+[VLearn Codelabs — Lab 01](https://codelabs.vlearn.dev/codelab/day1-lab-llm-api-foundation).
+Nội dung giống nhau; chọn bản nào bạn thấy dễ theo hơn.
+
+**1. Fork repo này** trên GitHub (nút **Fork** góc phải trên), rồi clone bản
+fork của bạn về máy — bài nộp cuối buổi là link tới fork đó:
+
+```bash
+git clone https://github.com/<tên-github-của-bạn>/K4-L3-Day1-AI-LLM-Foundation.git
+cd K4-L3-Day1-AI-LLM-Foundation
+```
+
+Nếu bạn đã clone từ trước, lấy bản mới nhất trước khi bắt đầu:
+
+```bash
+git pull
+```
+
+**2. Tạo môi trường ảo và cài thư viện:**
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+**3. Chạy thử bộ test** — phải fail hàng loạt, đó là dấu hiệu đúng:
+
+```bash
+pytest tests/ -v
+```
+
+Kỳ vọng `33 failed, 2 passed`: môi trường đã sẵn sàng, chỉ còn thiếu code của
+bạn. Sau đó mở [LAB_GUIDE.md](LAB_GUIDE.md) và làm theo từng block. Bạn viết
+code trong `template.py` và câu trả lời trong `exercises.md`; những file còn
+lại là giàn giáo.
+
+Pytest dùng mock nên **không cần API key và không tốn tiền**. Key chỉ cần khi
+bạn muốn gọi model thật ở phần demo và hai câu trong `exercises.md`.
+
+---
+
 ## Mục Tiêu Bài Lab
 
 Sau khi hoàn thành, bạn có thể:
