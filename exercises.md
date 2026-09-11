@@ -41,7 +41,7 @@ Gọi `chat_with_system_prompt` hai lần với cùng câu hỏi
 
 **Hai phản hồi khác nhau như thế nào (độ dài, từ vựng, ví dụ)? System prompt
 ảnh hưởng đến hành vi model ra sao?** (3–4 câu)
-> *Câu trả lời của bạn*
+> Hai phản hồi có sự khác biệt rõ rệt: phản hồi cho trẻ 8 tuổi có dung lượng ngắn gọn, từ vựng đơn giản và dùng ví dụ ẩn dụ trực quan (như cuốn sổ ghi chép chung của lớp mà không ai tự ý tẩy xóa được); trong khi phản hồi của chuyên gia tài chính dài hơn, trang trọng và chứa nhiều thuật ngữ chuyên môn (sổ cái phân tán, cơ chế đồng thuận, mã hóa mật mã học, phi tập trung). System prompt đóng vai trò thiết lập khung ngữ cảnh và quy định đối tượng mục tiêu, từ đó điều hướng cách chọn từ vựng, giọng điệu và phong cách giải thích của model mà không làm thay đổi câu hỏi gốc của người dùng.
 
 ### Câu 2.2 — tiktoken vs đếm từ
 Chọn một đoạn văn tiếng Việt ~100 từ. So sánh số token theo `count_tokens`
@@ -49,7 +49,7 @@ Chọn một đoạn văn tiếng Việt ~100 từ. So sánh số token theo `co
 
 **Hai con số chênh nhau bao nhiêu phần trăm? Vì sao tiếng Việt thường tốn
 nhiều token hơn tiếng Anh cùng độ dài?**
-> *Câu trả lời của bạn*
+> Với đoạn văn mẫu 117 từ tiếng Việt, count_tokens (tiktoken với o200k_base) cho kết quả 137 token, trong khi công thức ước lượng (117 / 0.75) cho ra 156 token, chênh lệch khoảng 12.2% (với các bộ mã hóa cũ hơn như cl100k_base, số token thực tế có thể lên đến hơn 250 token, chênh lệch trên 60%). Tiếng Việt thường tốn nhiều token hơn tiếng Anh cùng độ dài vì các thuật toán token hóa (BPE) được tối ưu chủ yếu trên kho ngữ liệu tiếng Anh, trong khi các từ tiếng Việt chứa nhiều ký tự có dấu thanh (Unicode diacritics) thường bị chia tách thành nhiều sub-word hoặc byte token nhỏ thay vì giữ nguyên một token trọn từ.
 
 ---
 
