@@ -74,13 +74,13 @@ với delay cố định giống nhau?**
 **Bạn chọn persona gì cho trợ lý của mình? Viết lại system prompt đó và giải
 thích 1–2 lựa chọn từ ngữ quan trọng trong prompt (ví dụ: vì sao yêu cầu
 "trả lời ngắn gọn", vì sao chỉ định ngôn ngữ...):**
-> *Câu trả lời của bạn*
+> Chọn persona là: "Bạn là trợ giảng lập trình AI thân thiện, luôn giải thích bằng tiếng Việt dễ hiểu, đưa ra các ví dụ code ngắn gọn và khuyến khích sinh viên tự tư duy.". Giải thích lựa chọn từ ngữ: 1. "ngắn gọn / ví dụ code ngắn gọn": Giúp kiểm soát trần token đầu ra (output tokens), từ đó giảm thiểu chi phí API, hạ thấp độ trễ phản hồi và tránh làm người dùng bị ngợp thông tin trên giao diện terminal. 2. "bằng tiếng Việt dễ hiểu": Định hướng rõ ràng ngôn ngữ phản hồi ngay từ đầu, tránh việc mô hình tự ý chuyển sang tiếng Anh khi gặp các thuật ngữ kỹ thuật chuyên sâu.
 
 ### Câu 4.2 — Hạn chế & cải thiện
 **Trợ lý của bạn hiện có hạn chế lớn nhất là gì (ví dụ: history chỉ 3 lượt,
 không có bộ nhớ dài hạn, không kiểm duyệt nội dung...)? Đề xuất một cải
 thiện cụ thể và mô tả ngắn cách triển khai:**
-> *Câu trả lời của bạn*
+> Hạn chế lớn nhất của trợ lý hiện tại là cơ chế cắt history cứng chỉ giữ lại 3 lượt gần nhất (history[-6:]), khiến trợ lý bị mất hoàn toàn ngữ cảnh và các thông tin quan trọng được trao đổi ở đầu phiên (như tên người dùng, ràng buộc bài toán). **Đề xuất cải thiện:** Triển khai cơ chế tóm tắt ngữ cảnh tự động (Rolling Context Summarization). **Cách triển khai:** Khi danh sách messages vượt quá ngưỡng (ví dụ 6 tin nhắn), thay vì cắt bỏ thẳng tay các tin nhắn cũ, hệ thống sẽ gọi một tác vụ ngầm yêu cầu mô hình tóm tắt lại các lượt hội thoại đã qua thành 1 đoạn văn ngắn gọn. Đoạn tóm tắt này được ghim ngay sau System prompt làm ngữ cảnh nền tảng, giúp trợ lý ghi nhớ được toàn bộ diễn biến cuộc trò chuyện mà vẫn tiết kiệm đáng kể token đầu vào.
 
 ---
 
