@@ -45,7 +45,7 @@ OPENAI_MINI_MODEL = os.getenv("LAB_MINI_MODEL", "gpt-4o-mini")
 def call_openai(
     prompt: str,
     model: str = OPENAI_MODEL,
-    temperature: float = 0.7,
+    temperature: float = 1.5,
     top_p: float = 0.9,
     max_tokens: int = 256,
 ) -> tuple[str, float]:
@@ -90,7 +90,7 @@ def call_openai(
 # ---------------------------------------------------------------------------
 def call_openai_mini(
     prompt: str,
-    temperature: float = 0.7,
+    temperature: float = 1.5,
     top_p: float = 0.9,
     max_tokens: int = 256,
 ) -> tuple[str, float]:
@@ -178,8 +178,23 @@ def chat_with_system_prompt(
             {"role": "user", "content": user_prompt},
         ]
     """
-    # TODO: giống call_openai nhưng messages có thêm phần tử role="system"
-    raise NotImplementedError("Implement chat_with_system_prompt")
+    # # TODO: giống call_openai nhưng messages có thêm phần tử role="system"
+    # raise NotImplementedError("Implement chat_with_system_prompt")
+    from openai import OpenAI
+    
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    start = time.perf_counter()
+    response = client.chat.completions.create(
+        model=model,
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ],
+        temperature=temperature,
+        max_tokens=max_tokens
+    )
+    end = time.perf_counter()
+    return response.choices[0].message.content, end - start
 
 
 # ---------------------------------------------------------------------------
@@ -205,9 +220,16 @@ def count_tokens(text: str, model: str = OPENAI_MODEL) -> int:
         try/except — nếu lỗi (offline, model lạ), dùng ước lượng dự phòng:
         max(1, len(text) // 4)   (trung bình 1 token ≈ 4 ký tự)
     """
-    # TODO: dùng tiktoken để đếm token, có fallback khi lỗi
-    raise NotImplementedError("Implement count_tokens")
-
+    # # TODO: dùng tiktoken để đếm token, có fallback khi lỗi
+    # raise NotImplementedError("Implement count_tokens")
+    
+    try:
+        import tiktoken
+        enc = tiktoken.encoding_for_model(model)
+        return len(enc.encode(text))
+    except Exception as e:
+        print(f"Error counting tokens: {e}")
+        return max(1, len(text) // 4)
 
 # ---------------------------------------------------------------------------
 # Task 2.3 — Ước tính chi phí chính xác
@@ -232,8 +254,23 @@ def estimate_cost(prompt: str, response: str, model: str = OPENAI_MODEL) -> dict
         (.get với fallback: model không có trong bảng giá — ví dụ model NIM
          miễn phí — thì lấy giá gpt-4o làm tham chiếu học tập)
     """
-    # TODO: đếm token prompt/response, tra bảng giá, trả về dict 5 key
-    raise NotImplementedError("Implement estimate_cost")
+    # # TODO: đếm token prompt/response, tra bảng giá, trả về dict 5 key
+    # raise NotImplementedError("Implement estimate_cost")
+    input_tokens = count_tokens(prompt, model)
+    output_tokens = count_tokens(response, model)
+
+    pricing = PRICING_PER_1K_TOKENS.get(model, PRICING_PER_1K_TOKENS["gpt-4o"])
+    input_cost = input_tokens / 1000 * pricing["input"]
+    output_cost = output_tokens / 1000 * pricing["output"]
+    total_cost = input_cost + output_cost
+
+    return {
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "input_cost": input_cost,
+        "output_cost": output_cost,
+        "total_cost": total_cost
+    }
 
 
 # ===========================================================================
