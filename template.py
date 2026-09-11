@@ -69,10 +69,21 @@ def call_openai(
         # (perf_counter là đồng hồ đo khoảng thời gian, độ phân giải cao trên
         #  mọi hệ điều hành; time.time() trên Windows có thể trả về 0.0)
     """
-    # TODO: import OpenAI, tạo client, gọi chat.completions.create,
-    #       đo start/end time, trả về (response_text, latency)
-    raise NotImplementedError("Implement call_openai")
+    from openai import OpenAI  # import BÊN TRONG hàm theo đúng quy tắc của lab
 
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+    start = time.perf_counter()
+    response = client.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": prompt}],
+        temperature=temperature,
+        top_p=top_p,
+        max_tokens=max_tokens,
+    )
+    latency = time.perf_counter() - start
+
+    return response.choices[0].message.content, latency
 
 # ---------------------------------------------------------------------------
 # Task 1.2 — Gọi GPT-4o-mini
@@ -92,8 +103,14 @@ def call_openai_mini(
     Gợi ý:
         Tái sử dụng call_openai() với model=OPENAI_MINI_MODEL — 1 dòng code.
     """
-    # TODO: gọi call_openai với model=OPENAI_MINI_MODEL
-    raise NotImplementedError("Implement call_openai_mini")
+    call_openai_mini = call_openai(
+        prompt=prompt,
+        model=OPENAI_MINI_MODEL,
+        temperature=temperature,
+        top_p=top_p,
+        max_tokens=max_tokens,
+    )
+    return call_openai_mini
 
 
 # ---------------------------------------------------------------------------
