@@ -15,11 +15,11 @@ Gọi `call_openai` với temperature 0.0, 0.5, 1.0 và 1.5 dùng prompt
 **"Hãy kể cho tôi một sự thật thú vị về Việt Nam."**
 
 **Bạn nhận thấy quy luật gì qua bốn phản hồi?** (2–3 câu)
-> *Câu trả lời của bạn*
+> Khi temp ở 0.0 câu trả lời có ít sáng tạo và đúng hơn, tập chung vào sự chính xác. khi ở mức 0.5-1.0, câu trả lời sáng tại hơn, văn phong tự nhiên đa dạng và phong phú hơn. Khi lên mức 1.5, câu từ trở nên bay bổng, khó dự đoán hơn nhưng bắt đầu có dấu hiệu lan man và giảm tính liên kết logic.
 
 ### Câu 1.2 — Chọn temperature cho sản phẩm
 **Bạn sẽ đặt temperature bao nhiêu cho chatbot hỗ trợ khách hàng, và tại sao?**
-> *Câu trả lời của bạn*
+> Khi để hỗ trợ khách hàng thì độ chích xác nên đặt lên hàng đầu, vì vậy temp nên để thấp (chẳng hạn 0.0-0.3)
 
 ### Câu 1.3 — Đánh đổi chi phí
 Kịch bản: 10.000 người dùng hoạt động mỗi ngày, mỗi người gọi API 3 lần,
@@ -27,7 +27,7 @@ mỗi lần trung bình ~350 token đầu ra.
 
 **Ước tính GPT-4o đắt hơn GPT-4o-mini bao nhiêu lần cho workload này? Nêu một
 trường hợp GPT-4o xứng đáng với chi phí và một trường hợp nên dùng mini:**
-> *Câu trả lời của bạn*
+> GPT-4o đắt hơn GPT-4o-mini khoảng 16.67 lần (cho phần output: 0.010 / 0.0006; tiêu tốn khoảng $105/ngày so với chỉ $6.30/ngày của mini). Nên dùng GPT-4o cho các tác vụ phức tạp đòi hỏi suy luận nhiều bước, phân tích tài liệu pháp lý/tài chính chuyên sâu, hỗ trợ chẩn đoán y tế hoặc viết mã nguồn phức tạp nơi mà sai sót nhỏ có thể gây thiệt hại lớn. Dùng GPT-4o-mini: Các tác vụ thường nhật với lưu lượng truy cập lớn như phân loại phản hồi khách hàng, trích xuất thông tin có cấu trúc cơ bản, tóm tắt đoạn văn bản ngắn hoặc chatbot trả lời các câu hỏi thường gặp (FAQ).
 
 ---
 
