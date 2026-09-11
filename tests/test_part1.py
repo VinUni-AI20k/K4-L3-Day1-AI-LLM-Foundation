@@ -21,7 +21,7 @@ def _make_openai_response(text: str = "Hello from OpenAI"):
 
 class TestCallOpenAI(unittest.TestCase):
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_returns_non_empty_string(self, MockOpenAI):
         mock_client = MagicMock()
         MockOpenAI.return_value = mock_client
@@ -32,7 +32,7 @@ class TestCallOpenAI(unittest.TestCase):
         self.assertIsInstance(result, str)
         self.assertGreater(len(result), 0)
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_latency_is_positive_float(self, MockOpenAI):
         mock_client = MagicMock()
         MockOpenAI.return_value = mock_client
@@ -43,7 +43,7 @@ class TestCallOpenAI(unittest.TestCase):
         self.assertIsInstance(latency, float)
         self.assertGreater(latency, 0.0)
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_returns_tuple_of_two(self, MockOpenAI):
         mock_client = MagicMock()
         MockOpenAI.return_value = mock_client
@@ -57,7 +57,7 @@ class TestCallOpenAI(unittest.TestCase):
 
 class TestCallOpenAIMini(unittest.TestCase):
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_returns_non_empty_string(self, MockOpenAI):
         mock_client = MagicMock()
         MockOpenAI.return_value = mock_client
@@ -68,7 +68,7 @@ class TestCallOpenAIMini(unittest.TestCase):
         self.assertIsInstance(result, str)
         self.assertGreater(len(result), 0)
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_uses_mini_model(self, MockOpenAI):
         mock_client = MagicMock()
         MockOpenAI.return_value = mock_client
@@ -79,7 +79,7 @@ class TestCallOpenAIMini(unittest.TestCase):
         _, kwargs = mock_client.chat.completions.create.call_args
         self.assertEqual(kwargs.get("model"), MOD.OPENAI_MINI_MODEL)
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_returns_tuple_of_two(self, MockOpenAI):
         mock_client = MagicMock()
         MockOpenAI.return_value = mock_client

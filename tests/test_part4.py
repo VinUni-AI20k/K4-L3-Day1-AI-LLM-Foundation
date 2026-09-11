@@ -34,7 +34,7 @@ class TestRunAssistantBasic(unittest.TestCase):
     def test_function_exists_and_is_callable(self):
         self.assertTrue(callable(MOD.run_assistant))
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_quit_immediately_returns_stats_dict(self, MockOpenAI):
         MockOpenAI.return_value = MagicMock()
         get_input = MagicMock(side_effect=["quit"])
@@ -46,7 +46,7 @@ class TestRunAssistantBasic(unittest.TestCase):
             self.assertIn(key, result, f"Thiếu key: {key}")
         self.assertEqual(result["num_turns"], 0)
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_exit_is_case_insensitive(self, MockOpenAI):
         MockOpenAI.return_value = MagicMock()
         get_input = MagicMock(side_effect=["EXIT"])
@@ -55,7 +55,7 @@ class TestRunAssistantBasic(unittest.TestCase):
 
         self.assertEqual(result["num_turns"], 0)
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_max_turns_zero_returns_without_reading_input(self, MockOpenAI):
         MockOpenAI.return_value = MagicMock()
         get_input = MagicMock(side_effect=[])  # nếu bị gọi sẽ raise StopIteration
@@ -80,7 +80,7 @@ class TestRunAssistantScenario(unittest.TestCase):
         result = MOD.run_assistant(self.PERSONA, get_input=get_input)
         return result, mock_client
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_two_turns_counted_and_stats_positive(self, MockOpenAI):
         result, _ = self._run_conversation(
             MockOpenAI,
@@ -91,7 +91,7 @@ class TestRunAssistantScenario(unittest.TestCase):
         self.assertGreater(result["total_tokens"], 0)
         self.assertGreater(result["total_cost"], 0.0)
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_api_called_with_stream_and_persona(self, MockOpenAI):
         _, mock_client = self._run_conversation(
             MockOpenAI, ["Xin chào"], ["Chào bạn!"]
@@ -106,7 +106,7 @@ class TestRunAssistantScenario(unittest.TestCase):
             "Persona phải được gửi làm system prompt",
         )
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_history_contains_last_turn(self, MockOpenAI):
         result, _ = self._run_conversation(
             MockOpenAI,
@@ -117,7 +117,7 @@ class TestRunAssistantScenario(unittest.TestCase):
         self.assertIn("Câu hỏi thứ hai", history_text)
         self.assertIn("Trả lời thứ hai", history_text)
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_history_trimmed_to_three_turns(self, MockOpenAI):
         user_messages = [f"Câu hỏi số {i}" for i in range(1, 6)]  # 5 lượt
         replies = [f"Trả lời số {i}." for i in range(1, 6)]
@@ -130,7 +130,7 @@ class TestRunAssistantScenario(unittest.TestCase):
             "History phải được cắt còn tối đa 3 lượt (6 message)",
         )
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_max_turns_limits_conversation(self, MockOpenAI):
         mock_client = MagicMock()
         MockOpenAI.return_value = mock_client

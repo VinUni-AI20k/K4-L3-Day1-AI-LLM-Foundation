@@ -21,7 +21,7 @@ def _make_openai_response(text: str = "Hello from OpenAI"):
 
 class TestChatWithSystemPrompt(unittest.TestCase):
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_returns_tuple_str_float(self, MockOpenAI):
         mock_client = MagicMock()
         MockOpenAI.return_value = mock_client
@@ -35,7 +35,7 @@ class TestChatWithSystemPrompt(unittest.TestCase):
         self.assertIsInstance(result[1], float)
         self.assertGreater(result[1], 0.0)
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_messages_contain_system_and_user_roles(self, MockOpenAI):
         mock_client = MagicMock()
         MockOpenAI.return_value = mock_client
@@ -52,7 +52,7 @@ class TestChatWithSystemPrompt(unittest.TestCase):
         self.assertIn("system", roles)
         self.assertIn("user", roles)
 
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_system_prompt_content_is_sent(self, MockOpenAI):
         mock_client = MagicMock()
         MockOpenAI.return_value = mock_client
@@ -124,8 +124,8 @@ class TestEstimateCost(unittest.TestCase):
         )
 
     def test_mini_is_cheaper_than_gpt4o(self):
-        cost_4o = MOD.estimate_cost(self.PROMPT, self.RESPONSE, model="gpt-4o")
-        cost_mini = MOD.estimate_cost(self.PROMPT, self.RESPONSE, model="gpt-4o-mini")
+        cost_4o = MOD.estimate_cost(self.PROMPT, self.RESPONSE, model="groq/compound")
+        cost_mini = MOD.estimate_cost(self.PROMPT, self.RESPONSE, model="groq/compound-mini")
         self.assertLess(cost_mini["total_cost"], cost_4o["total_cost"])
 
 

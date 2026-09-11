@@ -32,7 +32,7 @@ class TestStreamingChatbot(unittest.TestCase):
         self.assertTrue(callable(MOD.streaming_chatbot))
 
     @patch("builtins.input", side_effect=["quit"])
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_exits_on_quit(self, MockOpenAI, mock_input):
         """Chatbot phải thoát sạch khi người dùng gõ 'quit'."""
         mock_client = MagicMock()
@@ -43,7 +43,7 @@ class TestStreamingChatbot(unittest.TestCase):
             pass  # input() hết side_effect — chấp nhận được
 
     @patch("builtins.input", side_effect=["Xin chào", "quit"])
-    @patch("openai.OpenAI")
+    @patch("groq.Groq")
     def test_streams_one_turn_with_stream_true(self, MockOpenAI, mock_input):
         """Một lượt chat phải gọi API với stream=True."""
         mock_client = MagicMock()
